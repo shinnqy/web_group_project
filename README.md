@@ -7,3 +7,6 @@ http://pixelkit.com/previews/hotel-ui-kit/
 
 About bootstrap:<br>
 http://v3.bootcss.com/getting-started/#community
+
+2016.3.15
+I changed the template.
