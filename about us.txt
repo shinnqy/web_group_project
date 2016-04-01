@@ -1,0 +1,22 @@
+<div id = "QA">
+
+    <h1 id = "about" >About Us</h1>
+        <p><strong>CONTATC US: </strong>For any technical or operating problems, please contact us by: </p>
+          <li>Mobile Phone: (852) 6094 9669</li>
+          <li>Email: lingyun_huang@hotmail.com</li>
+          <li>Fax: (852) 6094 9669</li>
+        <p><strong>DISCLAIMER: </strong>The contents of the Donate and Exchange website is subject to change without notice. We accepts no liability for any loss or damage howsoever arising from any use or misuse of or reliance on any information in this website.</p>
+        <p><strong>STATEMENT: </strong>When you visit this website, we will have record of your Domain Name Server address and the pages you have visited. This information may be used by us for statistical purpose only..</p>
+        
+        
+    <h1 id = "donate" >How to Donate</h1>
+        <p><strong>TO DONATE: </strong> To donate something, please starts with the Donate Selection at the main page and then, follow the next procedures to process to donate.</p>
+        <p><strong>DONATE CLAIM: </strong> All the items being donated by owners, will be collected by us. Then, they will be distributed to any people being in the extremely poor circumstances under the supervision of Hong Kong government.</p>
+        
+        
+    <h1 id = "exchange">How to Exchange</h1>
+        <p><strong>TO EXCHANGE: </strong> To exchange something, please starts with the Exchange Selection at the main page and then, follow the next procedures to process to exchange with some else.</p>
+        <p><strong>EXCHANGE CLAIM: </strong> All the items can be exchangedd on this website, which must be agreed by two exchangers, respectively. This website merely provides a platform for exchanging and is not responsible for any losses made during the exchange with anyone else. </p>
+    <h1 id = "trust" >How to Increase Trust Rate</h1>
+        <p><strong>TRUST RATE: </strong> To increase yout personal trust rate is to help yourself in building a good donation or exchange reputation so that you will be highly demanded once you have items being available. For reaching a great trust rate, you are supposed to make a appropriate description of your item and do not make any exaggeration on it.</p>
+</div>
