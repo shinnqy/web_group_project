@@ -12,6 +12,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+    <script src="{{ url_for('static', filename='js/jquery-2.2.3.min.js', _external=True) }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js', _external=True) }}"></script>
+    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
 	<link href="{{ url_for('static', filename='css/bootstrap.min.css', _external=True) }}" rel="stylesheet" type="text/css"/>
 	<link href="{{ url_for('static', filename='css/docs.min.css', _external=True) }}" rel="stylesheet" type="text/css">
 {#    <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>#}
@@ -295,8 +299,7 @@
     </footer>
 
 	{% block scripts %}
-    <script src="{{ url_for('static', filename='js/jquery-2.2.3.min.js', _external=True) }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js', _external=True) }}"></script>
+
 {#    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js', _external=True) }}"></script>#}
     {{ moment.include_moment() }}
     {% endblock %}
