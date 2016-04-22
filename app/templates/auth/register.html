@@ -4,7 +4,7 @@
 
 {% block head %}
 	{{ super() }}
-    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+{#    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>#}
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="{{ url_for('static', filename='js/login_register_upload.js', _external=True) }}"></script>
 
@@ -20,15 +20,7 @@
 				<input type="password" placeholder="confirm password" required/>
 				<input type="email" id="email" ng-model="inputEmail" placeholder="email address" required/>
 				<span ng-show="!validCUHKemail()">Please make sure your email address is from CUHK domain !<br></span>
-				<script>
-					var app = angular.module('myApp', []);
-					app.controller("myController", function($scope){
-						// $scope.inputLoginEmail = ".cuhk.edu.hk";
-						$scope.validCUHKemail = function(){
-							return document.getElementById("email").value.slice(-12) == ".cuhk.edu.hk";
-						}
-					});
-				</script>
+
 				
 				<button id="create">create</button>
 				{% if not current_user.is_authenticated %}
