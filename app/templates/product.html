@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} Product {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/postStyle.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-offset-1">
+                <a href="#" class="thumbnail">
+                    <img src="{{ postItem.image_link }}" alt="">
+                </a>
+                <ul class="info-bar">
+                    <li><p class="text-center">Mouseover to see details</p></li>
+                </ul>
+            </div>
+			<div class="col-md-6">
+                <h2>{{ postItem.itemName }}</h2>
+				Posted by: <a href="{{ url_for('main.user_account', username=postItem.user_name) }}">{{ postItem.user_name }}</a> <br>
+				<span style="color:red">trustworthy Scores here</span>
+				<a>#num comments</a>
+				<h3 class="text-warning">Value: <span>{{ postItem.estimateValue }} HKD</span></h3>
+				<p class="text-muted">{{ postItem.description }}</p>
+				<p>
+					<button type="button" class="btn btn-warning">Add to Shopping Cart</button>
+					<button type="button" class="btn btn-default">&nbsp;&nbsp;Contact uploader&nbsp;&nbsp;</button>
+				</p>
+            </div>
+        </div>
+    </div>
+
+    <HR style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#987cb9,strength=10)" width="100%" color=#987cb9 SIZE=1>
+
+	<div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-offset-1">
+
+                <ul class="posts">
+                    {% for postText in postTexts %}
+                    <li class="post">
+                        <div class="profile-thumbnail">
+                            <a href="{{ url_for('main.user_account', username=postText.author_name) }}">
+                                <img class="img-rounded profile-thumbnail" src="{{ postText.author_avator_link }}" width="40">
+                            </a>
+                        </div>
+                        <div class="post-date">{{ moment(postText.time_stamp).fromNow() }}</div>
+                        <div class="post-author">
+                            <a href="{{ url_for('main.user_account', username=postText.author_name) }}">
+                                {{ postText.author_name }}
+                            </a>
+                        </div>
+                        <div class="post-body">{{ postText.textBody }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+				<h3 class="text-warning">Reviews:</h3>
+				<div>add reviews here</div>
+				<div>
+					<form>
+						<div id="rating" class="rating" ><a></a></div>
+						<div id="score"><em>0</em>分</div>
+						<script>
+							var rating=$('#rating');
+							var leftRating = rating.offset().left,
+								width = rating.width(),
+								clickWidth = 0;
+
+							rating.mouseover(function(e){
+								var overWidth=parseInt(((e.pageX-leftRating)/width)*100,10);
+								$(this).find('a').css({'width':(overWidth+'%')});
+							});
+							rating.mouseout(function(){
+								$(this).find('a').css({'width':(clickWidth)+'%'});
+							});
+							rating.mousemove(function(e){
+								var hoverWidth=parseInt(((e.pageX-leftRating)/width)*100,10);
+								$(this).find('a').css({'width':(hoverWidth+'%')});
+							});
+							rating.click(function(e){
+								clickWidth=parseInt(((e.pageX-leftRating)/width)*100,10);
+								$(this).find('a').css({'width':(clickWidth+'%')});
+								$('#score em').text(clickWidth);
+							});
+						</script>
+
+                        {% if current_user.is_authenticated %}
+{#					    <div class="form-group">#}
+{#						    <label for="exampleInputEmail1">Title</label>#}
+{#						    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Please input the title here">#}
+{#					    </div>#}
+					    <div class="form-group">
+						    <label for="textBody">Comments</label>
+						    <textarea class="form-control" rows="5" id="textBody" placeholder="Please input the comments here" required></textarea>
+					    </div>
+					    <button type="button" class="btn btn-default" onclick="postToItem({{ postItem.key.id() }})">Submit</button>
+                        {% endif %}
+					</form>
+				</div>
+	        </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/login_register_upload.js', _external=True) }}"></script>
+{% endblock %}

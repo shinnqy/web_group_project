@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <style>
+        div.form-group > input.form-control{
+            width: 70%;
+        }
+        div.form-group > textarea.form-control{
+            width: 70%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Personal Settings</a></li>
+            <li class="active">Profile</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">Personal settings</h3></div>
+                    <a href="{{ url_for('auth.edit_profile') }}" class="list-group-item active">Profile</a>
+                    <a href="{{ url_for('auth.edit_account') }}" class="list-group-item">Account</a>
+                    <a href="#" class="list-group-item">Emails</a>
+                    <a href="#" class="list-group-item">Notifications</a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="list-group panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">Public profile</h3></div>
+                    <div class="panel-body">
+                        <form method="post" action="{{ url_for('main.upload_avator') }}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="avator">Profile picture</label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('main.image', useremail=current_user.avator.user_email, _external=True) }}" alt="">
+                                        </a>
+                                    </div>
+                                    <input type="file" id="avator" name="avator" required>
+                                    <button class="btn btn-default" type="submit" id="submit_avator">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input class="form-control" type="text" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input class="form-control" type="text" id="location" name="location">
+                            </div>
+                            <div class="form-group">
+                                <label for="about_me">About me</label>
+                                <textarea class="form-control" name="about_me" id="about_me" cols="30" rows="5"></textarea>
+                            </div>
+                            <button class="btn btn-success" type="button" id="update">Update</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/login_register_upload.js', _external=True) }}"></script>
+{% endblock %}

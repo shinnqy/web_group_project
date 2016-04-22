@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %} Upload {% endblock %}
+
+{% block head %}
+    {{ super() }}
+{#    <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>#}
+{#    <link href="{{ url_for('static', filename='css/menu.css', _external=True) }}" rel="stylesheet" type="text/css">#}
+{#    <link href="{{ url_for('static', filename='css/item.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>#}
+    <link href="{{ url_for('static', filename='css/postStyle.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ url_for('main.index') }}">Home</a></li>
+            <li><a href="{{ url_for('main.user_account', username = current_user.name) }}">My Account</a></li>
+            <li class="active">Upload</li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <div class="list-group panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Post your item</h3></div>
+            <div class="panel-body">
+                <form method="post" action="{{ url_for('main.upload') }}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="itemImage">Item picture</label>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="#" class="thumbnail">
+                                    <img src="{{ url_for('main.itemImage', id=current_user.avator.filename, _external=True) }}" alt="">
+                                </a>
+                            </div>
+                            <input type="file" id="itemImage" name="itemImage">
+{#                            <button class="btn btn-default" type="submit" id="submit_avator">Submit</button>#}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="itmeName">Item name</label>
+                        <input class="form-control" type="text" id="itmeName" name="itmeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estimateValue">Estimated value</label>
+                        <input class="form-control" type="text" id="estimateValue" name="estimateValue" required>
+                    </div>
+                    <div class="form-group">
+                        <label>For exchange or donate</label><br>
+                        <label class="radio-inline">
+                            <input type="radio" name="eOrdOptions" id="forExchange" value="exchange" checked="checked"> Exchange
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="eOrdOptions" id="forDonate" value="donate"> Donate
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Choose a category</label><br>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryOptions" id="forFurniture" value="furniture"> Furniture
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryOptions" id="forSports" value="sports"> Sports
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryOptions" id="forElectronics" value="electronics"> Electronics
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryOptions" id="forClothes" value="clothes"> Clothes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryOptions" id="forOthers" value="others" checked="checked"> Others
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description" cols="30" rows="10" required></textarea>
+                    </div>
+                    <button class="btn btn-success" type="submit" id="post">Post</button>
+                </form>
+{#                <form>#}
+{#                    <div class="form-group">#}
+{#                        <label for="itmeName">Item name</label>#}
+{#                        <input class="form-control" type="text" id="itmeName" name="itmeName" required>#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label for="estimateValue">Estimated value</label>#}
+{#                        <input class="form-control" type="text" id="estimateValue" name="estimateValue" required>#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label for="description">Description</label>#}
+{#                        <textarea class="form-control" name="description" id="description" cols="30" rows="10" required></textarea>#}
+{#                    </div>#}
+{#                    <button class="btn btn-success" type="button" id="post">Post</button>#}
+{#                </form>#}
+            </div>
+        </div>
+    </div>
+
+{##}
+{#                    <ul class="posts">#}
+{#                        {% for post in posts %}#}
+{#                        <li class="post">#}
+{#                            <div class="profile-thumbnail">#}
+{#                                <a href="{{ url_for('main.user_account', username=post.author_name) }}">#}
+{#                                    <img class="img-rounded profile-thumbnail" src="">#}
+{#                                </a>#}
+{#                            </div>#}
+{#                            <div class="post-date">{{ moment(post.time_stamp).fromNow() }}</div>#}
+{#                            <div class="post-author">#}
+{#                                <a href="{{ url_for('main.user_account', username=post.author_name) }}">#}
+{#                                    {{ post.author_name }}#}
+{#                                </a>#}
+{#                            </div>#}
+{#                            <div class="post-body">{{ post.body }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/login_register_upload.js', _external=True) }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js', _external=True) }}"></script>
+    <script type="text/javascript">
+		function showValue(newValue)
+		{
+			document.getElementById("range").innerHTML=newValue;
+		}
+    </script>
+{% endblock %}

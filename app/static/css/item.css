@@ -1,0 +1,26 @@
+.abgne-menu-20140101-1 input[type="radio"] {
+	display: none;
+}
+.abgne-menu-20140101-1 input[type="radio"] + label {
+	display: inline-block;
+	border:1px solid #e1e4d9;
+	cursor: pointer;
+	padding: 5px 20px;
+	margin:5px;
+	width:220px;
+	text-align:center;
+}
+.abgne-menu-20140101-1 input[type="radio"]:checked + label {
+	background-color: #ffbb00;
+	color: #fff;
+	text-align:center;
+}
+#estimatevalue{
+	width:220px;
+	margin:5px;
+	border:1px solid #e1e4d9;
+}
+#desc{
+	margin:5px;
+	border:1px solid #e1e4d9;
+}
