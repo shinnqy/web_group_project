@@ -9,6 +9,7 @@
 {#    <link href="{{ url_for('static', filename='css/item.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>#}
     <link href="{{ url_for('static', filename='css/postStyle.css', _external=True) }}" rel="stylesheet" type="text/css" media="all"/>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<script src="{{ url_for('static', filename='js/index.js', _external=True) }}"></script>
 
 {% endblock %}
 
@@ -30,11 +31,11 @@
                         <label for="itemImage">Item picture</label>
                         <div class="row">
                             <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('main.itemImage', id=current_user.avator.filename, _external=True) }}" alt="">
-                                </a>
+                                <div class="thumbnail" id="destination">
+                                    <img src="{{ url_for('static', filename='images/PHOTO.jpg', _external=True) }}" alt="">
+                                </div>
                             </div>
-                            <input type="file" id="itemImage" name="itemImage">
+                            <input type="file" id="itemImage" name="itemImage" draggable="true" single/>
 {#                            <button class="btn btn-default" type="submit" id="submit_avator">Submit</button>#}
                         </div>
                     </div>
