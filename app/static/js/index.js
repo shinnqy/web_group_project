@@ -35,9 +35,10 @@ $(document).ready(function(){
 	   //ie6直接用file input的value值本地预览
 	   if($.browser.version==6)
 	   {
-		   $("#imgUpload").change(function(event){      
+		   $("#itemImage").change(function(event){
 		   //ie6下怎么做图片格式判断?
 		   var src = event.target.value;
+			   alert(src);
 		   //var src = document.selection.createRange().text;  //选中后 selection对象就产生了 这个对象只适合ie
 		   var img = '<img src="'+src+'" width="100%" height="100%" />';
 		   $("#destination").empty().append(img);
@@ -46,7 +47,7 @@ $(document).ready(function(){
 	   //ie7,8使用滤镜本地预览
 	   else if($.browser.version==7 || $.browser.version==8)
 	   {
-		$("#imgUpload").change(function(event){
+		$("#itemImage").change(function(event){
 		   $(event.target).select();
 		   var src = document.selection.createRange().text;
 		   var dom = document.getElementById('destination');
@@ -56,20 +57,21 @@ $(document).ready(function(){
 		   //使用和ie6相同的方式 设置src为绝对路径的方式 有些图片无法显示 效果没有使用滤镜好
 		   /*var img = '<img src="'+src+'" width="200px" height="200px" />';
 		   $("#destination").empty().append(img);*/
+			alert(src);
 		 });
 	   }
 	  }
 	  //如果是不支持FileReader接口的低版本firefox 可以用getAsDataURL接口
 	  else if($.browser.mozilla===true)
 	  {
-	   $("#imgUpload").change(function(event){
+	   $("#itemImage").change(function(event){
 		//firefox2.0没有event.target.files这个属性 就像ie6那样使用value值 但是firefox2.0不支持绝对路径嵌入图片 放弃firefox2.0
 		//firefox3.0开始具备event.target.files这个属性 并且开始支持getAsDataURL()这个接口 一直到firefox7.0结束 不过以后都可以用HTML5的FileReader接口了
 		if(event.target.files)
 		{
 		  //console.log(event.target.files);
 		  for(var i=0;i<event.target.files.length;i++)
-		  { 
+		  {
 			 var img = '<img src="'+event.target.files.item(i).getAsDataURL()+'" width="100%" height="100%"/>';
 		   $("#destination").empty().append(img);
 		  }
@@ -84,35 +86,7 @@ $(document).ready(function(){
 	 }
 	 else
 	 {
-	  // version 1
-	  /*$("#imgUpload").change(function(e){
-		var file = e.target.files[0];
-		var fReader = new FileReader();
-		//console.log(fReader);
-		//console.log(file);
-		fReader.onload=(function(var_file)
-		{
-		 return function(e)
-		 {
-		  $("#imgPreview").attr({'src':e.target.result,'alt':var_file.name});
-		 }
-		})(file);
-		fReader.readAsDataURL(file);
-		});*/
-		
-		//单图上传 version 2 
-		/*$("#imgUpload").change(function(e){
-		   var file = e.target.files[0];
-		   var reader = new FileReader();  
-		reader.onload = function(e){
-		 //displayImage($('bd'),e.target.result);
-		 //alert('load');
-		 $("#imgPreview").attr({'src':e.target.result});
-		}
-		reader.readAsDataURL(file);
-		 });*/
-		//多图上传 input file控件里指定multiple属性 e.target是dom类型
-		 $("#imgUpload").change(function(e){  
+		 $("#itemImage").change(function(e){
 		   for(var i=0;i<e.target.files.length;i++)
 			{
 			 var file = e.target.files.item(i);

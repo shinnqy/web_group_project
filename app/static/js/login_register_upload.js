@@ -7,11 +7,12 @@ $(document).ready(function(){
 	$('.message a').click(function(){
 		$('.register-form').hide();
 		$('.getpassword-form').hide();
-		$('.login-form').show("slow");
+		window.location.assign("/register?#");
+		//$('.login-form').show("slow");
 	});
 	$('#links_right a').click(function(){ 
 		$('.login-form').hide();
-		$('.register-form').show("slow");
+		window.location.assign("/login?#");
 	});
 
 	$("#create").click(function(){
@@ -29,6 +30,9 @@ $(document).ready(function(){
 				console.log(output);
 				if (output == "ok"){
 					window.location.assign("/login?#");
+
+					alert("You have registered successfully, you can login in now!");
+
 				}
 				console.log("Post success!");
 			}).fail(function(){
