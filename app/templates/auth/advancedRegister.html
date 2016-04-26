@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %} Register {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="{{ url_for('static', filename='js/html5shiv.js', _external=True) }}"></script>
+    <script src="{{ url_for('static', filename='js/advanceRegs&Login.js', _external=True) }}"></script>
+
+    <link href="{{ url_for('static', filename='css/normalize.css', _external=True) }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/jquery-ui.css', _external=True) }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/jquery.idealforms.min.css', _external=True) }}" rel="stylesheet" media="screen"/>
+
+    <style type="text/css">
+        body{font:normal 15px/1.5 Arial, Helvetica, Free Sans, sans-serif;color: #222;overflow-y:scroll;padding:60px 0 0 0;}
+        #my-form{width:755px;margin:0 auto;border:1px solid #ccc;padding:3em;border-radius:3px;box-shadow:0 0 2px rgba(0,0,0,.2);}
+        #comments{width:350px;height:100px;}
+        .mybutton{
+            display: inline-block; position: relative; padding: 0; margin-right: .1em; cursor: pointer; text-align: center; zoom: 1; overflow: visible;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+  <div class="eightcol last">
+
+    <!-- Begin Form -->
+
+    <form id="my-form">
+
+        <section name="Step 1">
+
+          <div><label>Username:</label><input id="username" name="username" type="text"/></div>
+          <div><label>Password:</label><input id="pass1" name="password" type="password"/></div>
+          <div><label>Email:</label><input id="email" name="email" data-ideal="required email" type="email"/></div>
+{#          <div><label>Birthday:</label><input name="date" class="datepicker" data-ideal="date" type="text" placeholder="月/日/年"/></div>#}
+{#          <div><label>Upload Avatar:</label><input id="file" name="file" multiple type="file"/></div>#}
+		  <div><hr/></div>
+			<div>
+				<input style="padding:9px 23px 7px;"type="button" onclick = "getNext0()" value="Next" />
+			</div>
+        </section>
+
+{#        <section name="Step 2">#}
+{#            <div><label>We have already sent an security code to your mailbox</label></div>#}
+{#			<div><label>Security Code:</label><input id="code" name="code" type="text"/></div>#}
+{#			<div><hr/></div>#}
+{#			<div>#}
+{#				<input style="padding:9px 23px 7px;"type="button" onclick = "getPrev1()" value="Prev" />#}
+{#				<input style="padding:9px 23px 7px;"type="button" onclick = "getNext1()" value="Next" />#}
+{#			</div>#}
+{#        </section>#}
+{##}
+{#        <section name="Step 3">#}
+{#			<div><label>Phone:</label><input type="tel" id="phone" name="phone" data-ideal="phone"/></div>#}
+{#			<div><label>Address:</label><input id="addr" name="addr" data-ideal="addr" type = "text"/></div>#}
+{#			<div><hr/></div>#}
+{#			<div>#}
+{#				<input style="padding:9px 23px 7px;"type="button" onclick = "getPrev2()" value="Prev" />#}
+{#				<button type="submit" id="submit">Submit</button>#}
+{#			</div>#}
+{#      </section>#}
+
+
+        <section name="Step 2">
+			<div><label>Phone:</label><input type="tel" id="phone" name="phone" data-ideal="phone"/></div>
+			<div><label>Address:</label><input id="addr" name="addr" data-ideal="addr" type = "text"/></div>
+			<div><hr/></div>
+			<div>
+				<input style="padding:9px 23px 7px;"type="button" onclick = "getPrev1()" value="Prev" />
+                <input style="padding:9px 23px 7px;"type="button" onclick = "getNext1()" value="Next" />
+			</div>
+      </section>
+
+        <section name="Step 3">
+            <div><label>Once you click the SUBMIT button we will send confirm link to your mailbox. You may check your email to get the link to complete registration!</label></div>
+{#			<div><label>Security Code:</label><input id="code" name="code" type="text"/></div>#}
+			<div><hr/></div>
+			<div>
+				<input style="padding:9px 23px 7px;"type="button" onclick = "getPrev2()" value="Prev" />
+				<button type="submit" id="submit">Submit</button>
+			</div>
+        </section>
+
+
+
+    </form>
+
+    <!-- End Form -->
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js', _external=True) }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.idealforms.js', _external=True) }}"></script>
+    <script type="text/javascript">
+        var options = {
+
+            onFail: function(){
+                alert( $myform.getInvalid().length +' invalid fields.' )
+            },
+
+            inputs: {
+                'password': {
+                    filters: 'required strongpass',
+                },
+                'username': {
+                    filters: 'required username',
+                    data: {
+                    //ajax: { url:'validate.php' }
+                    }
+                },
+                'file': {
+                    filters: 'extension',
+                    data: { extension: ['jpg'] }
+                },
+                'code': {
+                    filters: 'required',
+                    data: {}
+                },
+                'phone': {
+                    filters: 'required phone',
+                    data: {}
+                }
+            }
+
+        };
+
+        var $myform = $('#my-form').idealforms(options).data('idealforms');
+
+        $myform.focusFirst();
+        function getNext0(){
+            $("li").removeClass("ideal-tabs-tab-active")
+              $("li").eq("1").addClass('ideal-tabs-tab-active')
+              $("section").hide().eq("1").show()
+        }
+        function getNext1(){
+            $("li").removeClass("ideal-tabs-tab-active")
+              $("li").eq("2").addClass('ideal-tabs-tab-active')
+              $("section").hide().eq("2").show()
+        }
+        function getPrev1(){
+            $("li").removeClass("ideal-tabs-tab-active")
+              $("li").eq("0").addClass('ideal-tabs-tab-active')
+              $("section").hide().eq("0").show()
+        }
+        function getPrev2(){
+            $("li").removeClass("ideal-tabs-tab-active")
+              $("li").eq("1").addClass('ideal-tabs-tab-active')
+              $("section").hide().eq("1").show()
+        }
+    </script>
+{% endblock %}

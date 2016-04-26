@@ -89,6 +89,7 @@ class User(ndb.Model, UserMixin):
 	name = ndb.StringProperty()
 	password_hash = ndb.StringProperty()
 	email = ndb.StringProperty()
+	phone = ndb.StringProperty()
 	isConfirmed = ndb.BooleanProperty()
 
 	location = ndb.StringProperty()
@@ -134,11 +135,11 @@ class User(ndb.Model, UserMixin):
 		return check_password_hash(self.password_hash, password)
 
 	def generate_confirmation_token(self, expiration=3600):
-		s = Serializer(current_app.config['SECRET_KEY'], expiration)
+		s = Serializer('hard to guss string', expiration)
 		return s.dumps({'confirm': self.email})
 
 	def confirm(self, token):
-		s = Serializer(current_app.config['SECRET_KEY'])
+		s = Serializer('hard to guss string')
 		try:
 			data = s.loads(token)
 		except:

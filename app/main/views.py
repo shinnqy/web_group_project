@@ -19,7 +19,11 @@ def index():
 		qryDonate = "SELECT * FROM DatastoreFile WHERE haveExchange=false AND eOrd='donate' ORDER BY time_stamp DESC LIMIT 8"
 		postsDonate = ndb.gql(qryDonate).fetch()
 
-		return render_template('index.html', user = user, posts = posts, postsExchange=postsExchange, postsDonate=postsDonate)
+		avatorQry = "SELECT user_email FROM DatastoreAvator"
+		Result = ndb.gql(avatorQry).fetch()
+		avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+		return render_template('index.html', user = user, posts = posts, postsExchange=postsExchange, postsDonate=postsDonate, avatorResult=avatorResult)
 
 @main.route('/user_account/<username>', methods = ['GET'])
 def user_account(username):
@@ -29,7 +33,12 @@ def user_account(username):
 	else:
 		user = result[0]
 	posts = ndb.gql("SELECT * FROM DatastoreFile WHERE user_email =:user_email ORDER BY time_stamp DESC", user_email = user.email).fetch()
-	return render_template('userAccount.html', user = user, posts = posts)
+
+	avatorQry = "SELECT user_email FROM DatastoreAvator"
+	Result = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+	return render_template('userAccount.html', user = user, posts = posts, avatorResult=avatorResult)
 
 # @main.route('/user_account', methods = ['GET'])
 # def user_account():
@@ -70,7 +79,8 @@ def upload():
 
 		current_user.postItem.append(post)
 		current_user.put()
-		return redirect(url_for('main.upload'))
+		# return redirect(url_for('main.upload'))
+		return redirect(url_for('main.product', id = post.key.id()))
 	return render_template('upload.html')
 
 @main.route('/itemImage/<id>', methods = ['GET'])
@@ -102,7 +112,7 @@ def upload_avator():
 	entity.minetype = header
 	entity.user_email = user_email
 	entity.put()
-	image_url = url_for('main.image', useremail = entity.user_email, _external=True)
+	image_url = url_for('main.image', useremail = current_user.email, _external=True)
 	entity.avator_link = image_url
 	entity.put()
 
@@ -121,7 +131,7 @@ def image(useremail):
 		response.headers['Content-Disposition'] = "attachment; filename='%s'" % (entity.filename)
 		return response
 	else:
-		return abort(404)
+		return "no such image"
 
 @main.route('/product/<id>', methods = ['GET', 'POST'])
 def product(id):
@@ -144,7 +154,15 @@ def product(id):
 	if result:
 		postItem = result
 
-	return render_template('product.html', postItem = postItem, postTexts=postTexts)
+	entity = DatastoreFile.get_by_id(int(id))
+	recommendQry = "SELECT * FROM DatastoreFile WHERE category='%s' ORDER BY time_stamp DESC LIMIT 4" % (entity.category)
+	recommends = ndb.gql(recommendQry).fetch()
+
+	avatorQry = "SELECT user_email FROM DatastoreAvator"
+	Result = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+	return render_template('product.html', postItem = postItem, postTexts=postTexts, recommends=recommends, avatorResult=avatorResult)
 
 @main.route('/productList/<pageNum>', methods=['GET'])
 def productList(pageNum):
@@ -157,7 +175,11 @@ def productList(pageNum):
 	qry = "SELECT * FROM DatastoreFile ORDER BY time_stamp DESC LIMIT %d, %d" % (start_point, itemPerPage)
 	postItem = ndb.gql(qry).fetch()
 
-	return render_template('productList.html', postItem=postItem, totalPage=totalPage)
+	avatorQry = "SELECT user_email FROM DatastoreAvator"
+	Result = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+	return render_template('productList.html', postItem=postItem, totalPage=totalPage, avatorResult=avatorResult)
 
 @main.route('/productCategory/<category>/<pageNum>', methods = ['GET'])
 def productCategory(category, pageNum):
@@ -171,7 +193,11 @@ def productCategory(category, pageNum):
 	qry = "SELECT * FROM DatastoreFile WHERE category='%s' ORDER BY time_stamp DESC LIMIT %d, %d" % (category, start_point, itemPerPage)
 	postItem = ndb.gql(qry).fetch()
 
-	return render_template('productList.html', postItem=postItem, totalPage=totalPage)
+	avatorQry = "SELECT user_email FROM DatastoreAvator"
+	Result = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+	return render_template('productList.html', postItem=postItem, totalPage=totalPage, avatorResult=avatorResult)
 
 @main.route('/productEorD/<eOrd>/<pageNum>', methods = ['GET'])
 def productEorD(eOrd, pageNum):
@@ -185,7 +211,11 @@ def productEorD(eOrd, pageNum):
 	qry = "SELECT * FROM DatastoreFile WHERE eOrd='%s' ORDER BY time_stamp DESC LIMIT %d, %d" % (eOrd, start_point, itemPerPage)
 	postItem = ndb.gql(qry).fetch()
 
-	return render_template('productList.html', postItem=postItem, totalPage=totalPage)
+	avatorQry = "SELECT user_email FROM DatastoreAvator"
+	Result = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+	return render_template('productList.html', postItem=postItem, totalPage=totalPage, avatorResult=avatorResult)
 
 
 # @main.route('/about', methods = ['GET'])

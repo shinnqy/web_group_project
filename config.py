@@ -16,12 +16,12 @@ class Config:
 
 class DevelopmentConfig(Config):
 	DEBUG = True
-	MAIL_SERVER = 'smtp.googlemail.com'
-	# MAIL_SERVER = 'smtp.163.com'
+	# MAIL_SERVER = 'smtp.googlemail.com'
+	MAIL_SERVER = 'smtp.163.com'
 	MAIL_PORT = 465
 	MAIL_USE_TLS = False
 	MAIL_USE_SSL = True
-	MAIL_USERNAME = 'shinnqy@gmail.com'
+	MAIL_USERNAME = 'shinn-qy@163.com'
 	MAIL_PASSWORD = 'qy1991102691'
 	# SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 	
