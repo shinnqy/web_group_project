@@ -65,6 +65,7 @@ def register():
 		user.name = name
 		user.password = password
 		user.email = email
+		# user.avator_link = url_for('static', filename='images/defaultAvator.jpg', _external=True)
 		# user.confirm_key = confirm_key
 		user.isConfirmed = isConfirmed
 		user.put()

@@ -21,7 +21,7 @@ $(document).ready(function(){
 		var email = $('#email').val();
 		var obj = {'name':name, 'password':password, 'email':email};
 
-		if ( password != "" && name != ""){
+		if (email.slice(-12) == ".cuhk.edu.hk" && password != "" && name != ""){
 			$.ajax('/register',{
 				type: 'POST',
 				data: obj,
@@ -165,7 +165,7 @@ $(document).ready(function(){
 	// 	});
 	// });
 
-	function haveExchange(id) {
+	function haveExchange(id, para) {
 		var haveExchange = true;
 		var obj = {'haveExchange': haveExchange};
 
@@ -174,7 +174,7 @@ $(document).ready(function(){
 			data: obj,
 			dateType: 'html'
 		}).done(function (output) {
-			$("#haveExchange").attr("disabled", "disabled");
+			$(para).attr("disabled", "disabled");
 			console.log(output);
 			console.log("Post exchange successfully!");
 		}).fail(function () {
