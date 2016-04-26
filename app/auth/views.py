@@ -4,7 +4,7 @@ from google.appengine.ext import ndb
 
 from . import auth
 from ..models import User, DatastoreFile
-# from ..email import send_email
+from ..email import send_email, send_mail
 
 import random
 
@@ -71,6 +71,9 @@ def register():
 
 		token = user.generate_confirmation_token()
 		# send_email(user.email, 'Confirm Your Account', 'auth/email/confirm', user = user, token = token)
+
+		# content = "<p>Hello, '%s':</p><br><br><p>Please click this to confirm your registration: '%s'</p>" % (user.name, token)
+		# send_mail([user.email], 'Confirm Your Account', content)
 		return "ok"
 
 @auth.route('/confirm/<token>')
@@ -83,6 +86,28 @@ def confirm(token):
 	else:
 		flash('The confirmation link is invalid or has expired.')
 	return redirect(url_for('main.index'))
+
+# @auth.before_app_request
+# def before_request():
+# 	if current_user.is_authenticated() \
+# 			and not current_user.isConfirmed \
+# 			and request.endpoint[:5] != 'auth.'\
+# 			and request.endpoint != 'static':
+# 		return redirect(url_for('auth.unconfirmed'))
+#
+# @auth.route('/unconfirmed')
+# def unconfirmed():
+# 	if current_user.is_anonymous() or current_user.isConfirmed:
+# 		return redirect(url_for('main.index'))
+# 	return render_template('auth/unconfirmed.html')
+#
+# @auth.route('/confirm')
+# @login_required
+# def resend_confirmation():
+# 	token = current_user.generate_confirmation_token()
+# 	send_email(current_user.email, 'Confirm Your Account', 'auth/email/confirm', user=current_user, token=token)
+# 	flash('A new confirmation email has been sent to you by email.')
+# 	return redirect(url_for('main.index'))
 
 @auth.route('/find_password', methods = ['POST'])
 def find_password():

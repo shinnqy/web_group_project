@@ -149,7 +149,7 @@
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
                                     <div>
-                                        <img class="img-circle my_grid_img" src="{{ post.user_avator_link }}" width="50"/>
+                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) }}" width="50"/>
                                         <span class="text-warning" style="margin-left:10%">{{ post.user_name }}</span>
                                         <span style="margin-left:10%">trust rate</span>
                                         <p>

@@ -21,7 +21,7 @@ $(document).ready(function(){
 		var email = $('#email').val();
 		var obj = {'name':name, 'password':password, 'email':email};
 
-		if (email.slice(-12) == ".cuhk.edu.hk" && password != "" && name != ""){
+		if ( password != "" && name != ""){
 			$.ajax('/register',{
 				type: 'POST',
 				data: obj,
