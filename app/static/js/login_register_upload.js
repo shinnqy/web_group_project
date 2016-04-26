@@ -34,6 +34,9 @@ $(document).ready(function(){
 					alert("You have registered successfully, you can login in now!");
 
 				}
+				if (output == "email exist"){
+					alert("This email exist!!");
+				}
 				console.log("Post success!");
 			}).fail(function(){
 				console.log("Post fail!");

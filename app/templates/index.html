@@ -5,6 +5,13 @@
 {% block head %}
     {{ super() }}
     <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/star-rating.css', _external=True) }}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static', filename='js/star-rating-disable.js', _external=True) }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $(".rating-kv").rating();
+        });
+    </script>
 {% endblock %}
 {% block content %}
 	    <div id="banner">
@@ -75,18 +82,32 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="thumbnail">
                                 <a href="{{ url_for('main.product', id = post.key.id()) }}"><img src="{{ post.image_link }}" alt="{{ post.imagename }}"></a>
-                                    <!-->caption 是响应悬浮事件，暂时不想做哈哈哈哈<-->
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
                                     <div>
-                                        <img class="img-circle my_grid_img" src="{{ post.user_avator_link or url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
-                                        <span class="text-warning" style="margin-left:10%">{{ post.user_name }}</span>
-                                        <span style="margin-left:10%">trust rate</span>
+{#                                        <a href="{{ url_for('main.user_account', username=post.user_name) }}">#}
+{#                                            <img class="img-circle my_grid_img" src="{{ post.user_avator_link or url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>#}
+{#                                        </a>#}
+{#                                        <a href="{{ url_for('main.user_account', username=post.user_name) }}">#}
+{#                                            <span class="text-warning" style="margin-left:10%">{{ post.user_name }}</span>#}
+{#                                        </a>#}
+{#                                        <span style="margin-left:10%">trust rate</span>#}
+{#                                        <p>#}
+{#                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.#}
+{#                                        </p>#}
+                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
+                                        <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        <div style="position:relative; left:58%;top:-1.6em">
+                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                        </div>
                                         <p>
-                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                            {{ post.description }}
                                         </p>
                                     </div>
-                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                    <p>
+                                        <a href="#" class="btn btn-primary" role="button">Button</a>
+                                        <a href="#" class="btn btn-default" role="button">Button</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -101,18 +122,22 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="thumbnail">
                                 <a href="{{ url_for('main.product', id = post.key.id()) }}"><img src="{{ post.image_link }}" alt="{{ post.imagename }}"></a>
-                                    <!-->caption 是响应悬浮事件，暂时不想做哈哈哈哈<-->
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
                                     <div>
-                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email) }}" width="50"/>
-                                        <span class="text-warning" style="margin-left:10%">{{ post.user_name }}</span>
-                                        <span style="margin-left:10%">trust rate</span>
+                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
+                                        <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        <div style="position:relative; left:58%;top:-1.6em">
+                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                        </div>
                                         <p>
-                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                            {{ post.description }}
                                         </p>
                                     </div>
-                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                    <p>
+                                        <a href="#" class="btn btn-primary" role="button">Button</a>
+                                        <a href="#" class="btn btn-default" role="button">Button</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -145,18 +170,22 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="thumbnail">
                                 <a href="{{ url_for('main.product', id = post.key.id()) }}"><img src="{{ post.image_link }}" alt="{{ post.imagename }}"></a>
-                                    <!-->caption 是响应悬浮事件，暂时不想做哈哈哈哈<-->
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
                                     <div>
-                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) }}" width="50"/>
-                                        <span class="text-warning" style="margin-left:10%">{{ post.user_name }}</span>
-                                        <span style="margin-left:10%">trust rate</span>
+                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
+                                        <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        <div style="position:relative; left:58%;top:-1.6em">
+                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                        </div>
                                         <p>
-                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                            {{ post.description }}
                                         </p>
                                     </div>
-                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                    <p>
+                                        <a href="#" class="btn btn-primary" role="button">Button</a>
+                                        <a href="#" class="btn btn-default" role="button">Button</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

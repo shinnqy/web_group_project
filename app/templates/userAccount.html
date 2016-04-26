@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-3">
                 <a href="#" class="thumbnail">
-                    <img src="{{ url_for('main.image', useremail=user.email, _external=True) or url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" alt="">
+                    <img src="{{ url_for('main.image', useremail=user.email, _external=True) if (user.email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" alt="">
                 </a>
                 <ul class="info-bar">
                     <li><h2>{{ user.name }}</h2></li>
@@ -57,25 +57,25 @@
                     </li>
                 </ul>
 
-                <div class="page-header">
-                    {{ user.location }}
-                    {{ user.about_me }}
-                    {% if user.name or user.location %}
-                    <p>
-                        {% if user.name %}{{ user.name }}{% endif %}
-                        {% if user.location %}
-                            From
-                            <a href="http://maps.google.com/?q={{ user.location }}">
-                                {{ user.location }}
-                            </a>
-                        {% endif %}
-                    </p>
-                    {% endif %}
-                    {% if current_user.is_administrator() %}
-                        <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
-                    {% endif %}
-                    {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-                </div>
+{#                <div class="page-header">#}
+{#                    {{ user.location }}#}
+{#                    {{ user.about_me }}#}
+{#                    {% if user.name or user.location %}#}
+{#                    <p>#}
+{#                        {% if user.name %}{{ user.name }}{% endif %}#}
+{#                        {% if user.location %}#}
+{#                            From#}
+{#                            <a href="http://maps.google.com/?q={{ user.location }}">#}
+{#                                {{ user.location }}#}
+{#                            </a>#}
+{#                        {% endif %}#}
+{#                    </p>#}
+{#                    {% endif %}#}
+{#                    {% if current_user.is_administrator() %}#}
+{#                        <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>#}
+{#                    {% endif %}#}
+{#                    {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}#}
+{#                </div>#}
             </div>
 
             <div class="col-md-9">

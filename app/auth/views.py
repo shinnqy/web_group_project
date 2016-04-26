@@ -4,7 +4,7 @@ from google.appengine.ext import ndb
 
 from . import auth
 from ..models import User, DatastoreFile
-from ..email import send_email, send_mail
+from ..myEmail import send_email, send_mail
 
 import random
 
@@ -46,6 +46,11 @@ def logout():
 	logout_user()
 	return redirect(url_for('main.index'))
 
+@auth.route('/advanceRegister', methods = ['GET', 'POST'])
+def advanceRegister():
+	return render_template('auth/advancedRegister.html')
+
+
 @auth.route('/register', methods = ['GET', 'POST'])
 def register():
 	if request.method == 'GET':
@@ -58,14 +63,20 @@ def register():
 		name = request.form.get("name")
 		password = request.form.get("password")
 		email = request.form.get("email")
+		phone = request.form.get("phone")
 		isConfirmed = False
-		# confirm_key = random.randint(99999, 999999)
+
+		qry = "SELECT * from User WHERE email='%s'" % (email)
+		result = ndb.gql(qry).fetch()
+		if len(result) > 0:
+			return "email exist"
 
 		user = User(key = ndb.Key(User, email))
 		user.name = name
 		user.password = password
 		user.email = email
-		# user.avator_link = url_for('static', filename='images/defaultAvator.jpg', _external=True)
+		user.phone = phone
+		user.avator_link = url_for('static', filename='images/defaultAvator.jpg', _external=True)
 		# user.confirm_key = confirm_key
 		user.isConfirmed = isConfirmed
 		user.put()
@@ -73,8 +84,9 @@ def register():
 		token = user.generate_confirmation_token()
 		# send_email(user.email, 'Confirm Your Account', 'auth/email/confirm', user = user, token = token)
 
-		# content = "<p>Hello, '%s':</p><br><br><p>Please click this to confirm your registration: '%s'</p>" % (user.name, token)
-		# send_mail([user.email], 'Confirm Your Account', content)
+		content1 = render_template('auth/email/confirm' + '.html', user = user, token = token)
+		content = "<p>Hello, '%s':</p><p>Please click this to confirm your registration: '%s'</p>" % (user.name, token)
+		send_mail([user.email], 'Confirm Your Account', content1)
 		return "ok"
 
 @auth.route('/confirm/<token>')
@@ -141,7 +153,12 @@ def edit_profile():
 			current_user.put()
 			flash('Profile update successfully!')
 			# return redirect(url_for('main.user_account', username = current_user.name))
-	return render_template('editProfile.html')
+
+	avatorQry = "SELECT user_email FROM DatastoreAvator"
+	Result = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+
+	return render_template('editProfile.html', avatorResult=avatorResult)
 
 @auth.route('/editAccount', methods=['GET', 'POST'])
 @login_required
