@@ -57,6 +57,12 @@
                     </li>
                 </ul>
 
+                {% if current_user.email in buyerResult %}
+                <div>
+                    {{ buyerResult }}
+                </div>
+                {% endif %}
+
 {#                <div class="page-header">#}
 {#                    {{ user.location }}#}
 {#                    {{ user.about_me }}#}
@@ -96,7 +102,7 @@
                                         {% if post.haveExchange %}
                                             <button disabled="disabled" class="btn btn-primary" type="button" id="haveExchange" onclick="haveExchange({{ post.key.id() }})">Have Exchanged</button>
                                         {% else %}
-                                            <button class="btn btn-primary" type="button" id="haveExchange" onclick="haveExchange({{ post.key.id() }}, this)">Have Exchanged</button>
+                                            <button class="btn btn-primary" type="button" id="haveExchange" onclick="haveExchange({{ post.key.id() }}, this)">Exchanged</button>
                                         {% endif %}
                                     </p>
                                     {% endif %}

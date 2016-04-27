@@ -38,6 +38,11 @@ indexes:
 - kind: DatastoreFile
   properties:
   - name: user_email
+  - name: buyer_email
+
+- kind: DatastoreFile
+  properties:
+  - name: user_email
   - name: time_stamp
     direction: desc
 

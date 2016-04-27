@@ -61,11 +61,13 @@ class DatastoreFile(ndb.Model):
 	category = ndb.StringProperty()
 	eOrd = ndb.StringProperty()
 
-	haveExchange = ndb.BooleanProperty(default=False)
-
 	user_email = ndb.StringProperty()
 	user_name = ndb.StringProperty()
 	user_avator_link = ndb.StringProperty()
+
+	haveExchange = ndb.BooleanProperty(default=False)
+	buyer_email = ndb.StringProperty(default="NoOne")
+	interester_list = ndb.JsonProperty(default=[])
 
 
 class PostText(ndb.Model):
@@ -102,6 +104,8 @@ class User(ndb.Model, UserMixin):
 	postItem = ndb.StructuredProperty(DatastoreFile, repeated=True)
 	avator = ndb.StructuredProperty(DatastoreAvator)
 	avator_link = ndb.StringProperty()
+
+	rateCounts = ndb.IntegerProperty(default=0)
 
 	# followee = ndb.StructuredProperty(Followee, repeated = True)
 	# follower = ndb.StructuredProperty(Follower, repeated = True)
@@ -168,6 +172,15 @@ class User(ndb.Model, UserMixin):
 	def ping(self):
 		self.last_seen = datetime.utcnow()
 		self.put()
+
+
+# class ExchangeInfo(ndb.Model):
+# 	item_id = ndb.IntegerProperty()
+# 	saler_email = ndb.StringProperty()
+# 	interest_buyer_list = ndb.StructuredProperty(User)
+#
+# 	item_status = ndb.BooleanProperty()
+# 	buyer_email = ndb.StringProperty()
 
 
 class AnonymousUser(AnonymousUserMixin):

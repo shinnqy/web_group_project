@@ -201,6 +201,41 @@ $(document).ready(function(){
 		});
 	}
 	window.postToItem = postToItem;
+	
+	function addToInteres(id) {
+		var obj = {'id': id};
+
+		$.ajax('/interestInfoHandler',{
+			type: 'POST',
+			data: obj,
+			dateType: 'html'
+		}).done(function (output) {
+			alert(output);
+			console.log(output);
+			console.log("Post interest successfully!");
+		}).fail(function () {
+			console.log("Post interest fail!");
+		});
+	}
+	window.addToInteres = addToInteres;
+
+	function setBuyer(thispara, id) {
+		var buyeremail = $(thispara).text();
+		var obj = {'buyeremail': buyeremail, "id": id};
+
+		$.ajax('/setBuyerHandler',{
+			type: 'POST',
+			data: obj,
+			dateType: 'html'
+		}).done(function (output) {
+			alert(output);
+			console.log(output);
+			console.log("Post interest successfully!");
+		}).fail(function () {
+			console.log("Post interest fail!");
+		});
+	}
+	window.setBuyer = setBuyer;
 
 });
 

@@ -23,7 +23,7 @@ def index():
 		Result = ndb.gql(avatorQry).fetch()
 		avatorResult = [item.user_email.encode("utf-8") for item in Result]
 
-		return render_template('index.html', user = user, posts = posts, postsExchange=postsExchange, postsDonate=postsDonate, avatorResult=avatorResult)
+		return render_template('index.html', user=user, posts=posts, postsExchange=postsExchange, postsDonate=postsDonate, avatorResult=avatorResult)
 
 @main.route('/user_account/<username>', methods = ['GET'])
 def user_account(username):
@@ -35,10 +35,14 @@ def user_account(username):
 	posts = ndb.gql("SELECT * FROM DatastoreFile WHERE user_email =:user_email ORDER BY time_stamp DESC", user_email = user.email).fetch()
 
 	avatorQry = "SELECT user_email FROM DatastoreAvator"
-	Result = ndb.gql(avatorQry).fetch()
-	avatorResult = [item.user_email.encode("utf-8") for item in Result]
+	avatorQryResult = ndb.gql(avatorQry).fetch()
+	avatorResult = [item.user_email.encode("utf-8") for item in avatorQryResult]
 
-	return render_template('userAccount.html', user = user, posts = posts, avatorResult=avatorResult)
+	buyerQry = "SELECT buyer_email FROM DatastoreFile WHERE user_email='%s'" % (user.email)
+	buyerQryResult = ndb.gql(buyerQry).fetch()
+	buyerResult = [item.buyer_email.encode("utf-8") for item in buyerQryResult]
+
+	return render_template('userAccount.html', user=user, posts=posts, avatorResult=avatorResult, buyerResult=buyerResult)
 
 # @main.route('/user_account', methods = ['GET'])
 # def user_account():
@@ -73,7 +77,7 @@ def upload():
 		post.category = category
 		post.eOrd = eOrd
 		post.put()
-		image_link = url_for('main.itemImage', id = post.key.id(), _external=True)
+		image_link = url_for('main.itemImage', id=post.key.id(), _external=True)
 		post.image_link = image_link
 		post.put()
 
@@ -112,14 +116,14 @@ def upload_avator():
 	entity.minetype = header
 	entity.user_email = user_email
 	entity.put()
-	image_url = url_for('main.image', useremail = current_user.email, _external=True)
+	image_url = url_for('main.image', useremail=current_user.email, _external=True)
 	entity.avator_link = image_url
 	entity.put()
 
 	current_user.avator = entity
 	current_user.avator_link = image_url
 	current_user.put()
-	return redirect(url_for('main.user_account', username = current_user.name))
+	return redirect(url_for('main.user_account', username=current_user.name))
 
 @main.route('/image/<useremail>', methods = ['GET'])
 def image(useremail):
@@ -150,6 +154,7 @@ def product(id):
 
 	qry = "SELECT * FROM PostText WHERE post_for_item='%s' ORDER BY time_stamp DESC" % (id)
 	postTexts = ndb.gql(qry).fetch()
+
 	result = DatastoreFile.get_by_id(int(id))
 	if result:
 		postItem = result
@@ -162,7 +167,7 @@ def product(id):
 	Result = ndb.gql(avatorQry).fetch()
 	avatorResult = [item.user_email.encode("utf-8") for item in Result]
 
-	return render_template('product.html', postItem = postItem, postTexts=postTexts, recommends=recommends, avatorResult=avatorResult)
+	return render_template('product.html', postItem=postItem, postTexts=postTexts, recommends=recommends, avatorResult=avatorResult)
 
 @main.route('/productList/<pageNum>', methods=['GET'])
 def productList(pageNum):

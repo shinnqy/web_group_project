@@ -15,6 +15,7 @@ def before_request():
 		# if not current_user.confirmed and request.endpoint[:5] != 'auth.':
 		# 	return redirect(url_for('auth.unconfirmed'))
 
+
 @auth.route('/login', methods = ['GET', 'POST'])
 # @oid.loginhandler
 def login():
@@ -40,11 +41,13 @@ def login():
 		else:
 			return "noSuchEmail"
 
+
 @auth.route('/logout')
 @login_required
 def logout():
 	logout_user()
 	return redirect(url_for('main.index'))
+
 
 @auth.route('/advanceRegister', methods = ['GET', 'POST'])
 def advanceRegister():
@@ -89,6 +92,7 @@ def register():
 		send_mail([user.email], 'Confirm Your Account', content1)
 		return "ok"
 
+
 @auth.route('/confirm/<token>')
 @login_required
 def confirm(token):
@@ -99,6 +103,7 @@ def confirm(token):
 	else:
 		flash('The confirmation link is invalid or has expired.')
 	return redirect(url_for('main.index'))
+
 
 # @auth.before_app_request
 # def before_request():
@@ -122,6 +127,7 @@ def confirm(token):
 # 	flash('A new confirmation email has been sent to you by email.')
 # 	return redirect(url_for('main.index'))
 
+
 @auth.route('/find_password', methods = ['POST'])
 def find_password():
 	email = request.form.get("email")
@@ -135,6 +141,7 @@ def find_password():
 		user.email = email
 		user.put()
 		return "success"
+
 
 @auth.route('/editProfile', methods=['GET', 'POST'])
 @login_required
@@ -160,6 +167,7 @@ def edit_profile():
 
 	return render_template('editProfile.html', avatorResult=avatorResult)
 
+
 @auth.route('/editAccount', methods=['GET', 'POST'])
 @login_required
 def edit_account():
@@ -173,6 +181,7 @@ def edit_account():
 			# return redirect(url_for('main.user_account', username = current_user.name))
 	return render_template('editAccount.html')
 
+
 @auth.route('/changeItemStatus/<id>', methods = ['POST'])
 @login_required
 def changeItemStatus(id):
@@ -181,3 +190,43 @@ def changeItemStatus(id):
 	entity.haveExchange = bool(haveExchange)
 	entity.put()
 	return "success"
+
+
+@auth.route('/interestInfoHandler', methods = ['POST'])
+@login_required
+def interestInfoHandler():
+	id = request.form.get("id")
+
+	result = DatastoreFile.get_by_id(int(id))
+	if result:
+		postItem = result
+
+	if (current_user.email not in postItem.interester_list):
+		postItem.interester_list.append(current_user.email)
+		postItem.put()
+		return "added ok"
+	else:
+		return "cannot add again"
+
+
+@auth.route('/setBuyerHandler', methods = ['POST'])
+@login_required
+def setBuyerHandler():
+	buyeremail = request.form.get("buyeremail")
+	id = request.form.get("id")
+
+	qry = User.query(User.key == ndb.Key(User, buyeremail))
+	user = qry.fetch()[0]
+
+	result = DatastoreFile.get_by_id(int(id))
+	if result:
+		postItem = result
+
+	if (postItem.buyer_email == "NoOne"):
+		postItem.buyer_email = buyeremail
+		postItem.put()
+		user.rateCounts += 1
+		user.put()
+		return "setted ok"
+	else:
+		return "cannot set again"
