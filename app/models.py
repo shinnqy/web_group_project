@@ -106,6 +106,8 @@ class User(ndb.Model, UserMixin):
 	avator_link = ndb.StringProperty()
 
 	rateCounts = ndb.IntegerProperty(default=0)
+	ratedCounts = ndb.IntegerProperty(default=0)
+	rateScore = ndb.StringProperty(default="0")
 
 	# followee = ndb.StructuredProperty(Followee, repeated = True)
 	# follower = ndb.StructuredProperty(Follower, repeated = True)

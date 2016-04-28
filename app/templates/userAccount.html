@@ -4,6 +4,8 @@
 
 {% block head %}
     {{ super() }}
+    <link href="{{ url_for('static', filename='css/star-rating.css', _external=True) }}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static', filename='js/star-rating.js', _external=True) }}"></script>
     <style>
         ul.info-bar{
             list-style: none;
@@ -57,10 +59,46 @@
                     </li>
                 </ul>
 
-                {% if current_user.email in buyerResult %}
+                {% if current_user.email in buyerResult and current_user.rateCounts > 0 %}
                 <div>
-                    {{ buyerResult }}
+{#                    {{ buyerResult }}#}
+                    <p>You can rate this user now!</p>
+                    <div id="rating" class="rating" >
+                        <a></a>
+                    </div>
+                    <div id="score">
+                        <input id="input-21e" value="3.0" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
+                    </div>
+{#                    {% if  %}#}
+                    <br>
+                    <button class="btn btn-primary"  onclick="rateUser('{{ user.email }}')">Rate</button>
+{#                    {% endif %}#}
+                    <script>
+                        var rating=$('#rating');
+                        var leftRating = rating.offset().left,
+                            width = rating.width(),
+                            clickWidth = 0;
+
+                        rating.mouseover(function(e){
+                            var overWidth=parseInt(((e.pageX-leftRating)/width)*100,10);
+                            $(this).find('a').css({'width':(overWidth+'%')});
+                        });
+                        rating.mouseout(function(){
+                            $(this).find('a').css({'width':(clickWidth)+'%'});
+                        });
+                        rating.mousemove(function(e){
+                            var hoverWidth=parseInt(((e.pageX-leftRating)/width)*100,10);
+                            $(this).find('a').css({'width':(hoverWidth+'%')});
+                        });
+                        rating.click(function(e){
+                            clickWidth=parseInt(((e.pageX-leftRating)/width)*100,10);
+                            $(this).find('a').css({'width':(clickWidth+'%')});
+                            $('#score em').text(clickWidth);
+                        });
+                    </script>
                 </div>
+                {% else %}
+                    <p>You cannot rate this user.</p>
                 {% endif %}
 
 {#                <div class="page-header">#}

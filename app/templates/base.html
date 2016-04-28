@@ -43,10 +43,10 @@
             position: absolute;
             display: inline-block;
             left: 45%;
-            top: 0;
+            top: -2.5%;
         }
         div#header-icon > img{
-            height: 54px;
+            height: 100px;
         }
         hr#divider{
 {#            position: absolute;#}
@@ -135,7 +135,7 @@
 
     <div id="header-area">
         <div id="header-icon">
-            <img src="{{ url_for('static', filename='images/02_HomePage_03.png', _external=True) }}"/>
+            <img src="{{ url_for('static', filename='images/logo_new.png', _external=True) }}"/>
         </div>
     </div>
 
@@ -164,10 +164,10 @@
                                 <li><a href="{{ url_for('main.productCategory', category='electronics', pageNum=1) }}">Electronics</a></li>
                                 <li><a href="{{ url_for('main.productCategory', category='clothes', pageNum=1) }}">Clothes</a></li>
                                 <li><a href="{{ url_for('main.productCategory', category='others', pageNum=1) }}">Others</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="{{ url_for('main.productEorD', eOrd='exchange', pageNum=1) }}">Exchange</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="{{ url_for('main.productEorD', eOrd='donate', pageNum=1) }}">Donate</a></li>
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="{{ url_for('main.productEorD', eOrd='exchange', pageNum=1) }}">Exchange</a></li>#}
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="{{ url_for('main.productEorD', eOrd='donate', pageNum=1) }}">Donate</a></li>#}
                             </ul>
                         </li>
                         <li><a href="{{ url_for('main.productEorD', eOrd='exchange', pageNum=1) }}">Exchange</a></li>

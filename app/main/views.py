@@ -195,7 +195,7 @@ def productCategory(category, pageNum):
 
 	totalPage = int(math.ceil(totalItemNum / float(itemPerPage)))
 	start_point = (int(pageNum) - 1) * itemPerPage
-	qry = "SELECT * FROM DatastoreFile WHERE category='%s' ORDER BY time_stamp DESC LIMIT %d, %d" % (category, start_point, itemPerPage)
+	qry = "SELECT * FROM DatastoreFile WHERE haveExchange=false AND category='%s' ORDER BY time_stamp DESC LIMIT %d, %d" % (category, start_point, itemPerPage)
 	postItem = ndb.gql(qry).fetch()
 
 	avatorQry = "SELECT user_email FROM DatastoreAvator"
@@ -213,7 +213,7 @@ def productEorD(eOrd, pageNum):
 
 	totalPage = int(math.ceil(totalItemNum / float(itemPerPage)))
 	start_point = (int(pageNum) - 1) * itemPerPage
-	qry = "SELECT * FROM DatastoreFile WHERE eOrd='%s' ORDER BY time_stamp DESC LIMIT %d, %d" % (eOrd, start_point, itemPerPage)
+	qry = "SELECT * FROM DatastoreFile WHERE haveExchange=false AND eOrd='%s' ORDER BY time_stamp DESC LIMIT %d, %d" % (eOrd, start_point, itemPerPage)
 	postItem = ndb.gql(qry).fetch()
 
 	avatorQry = "SELECT user_email FROM DatastoreAvator"
@@ -221,6 +221,14 @@ def productEorD(eOrd, pageNum):
 	avatorResult = [item.user_email.encode("utf-8") for item in Result]
 
 	return render_template('productList.html', postItem=postItem, totalPage=totalPage, avatorResult=avatorResult)
+
+
+@main.route('/userRateStatus/<useremail>', methods = ['GET'])
+def userRateStatus(useremail):
+	qry = User.query(User.key == ndb.Key(User, useremail))
+	user = qry.fetch()[0]
+
+	return user.rateScore
 
 
 # @main.route('/about', methods = ['GET'])

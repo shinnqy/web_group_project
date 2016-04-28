@@ -53,12 +53,14 @@
                 <h2>{{ postItem.itemName }}</h2>
 				Posted by: <a href="{{ url_for('main.user_account', username=postItem.user_name) }}">{{ postItem.user_name }}</a> <br>
 				<span style="color:red">trustworthy Scores here</span>
-				<a>#num comments</a>
+				<p>Comments Num: {{ postTexts | length }}</p>
 				<h3 class="text-warning">Value: <span>{{ postItem.estimateValue }} HKD</span></h3>
 				<p class="text-muted">{{ postItem.description }}</p>
 				<p>
 					<button type="button" class="btn btn-warning" onclick="addToInteres({{ postItem.key.id() }})">&nbsp;&nbsp;I want it !!&nbsp;&nbsp;</button>
-					<button type="button" class="btn btn-default">&nbsp;&nbsp;Contact uploader&nbsp;&nbsp;</button>
+					<a href="{{ url_for('main.user_account', username=postItem.user_name) }}">
+                        <button type="button" class="btn btn-default">&nbsp;&nbsp;Contact uploader&nbsp;&nbsp;</button>
+                    </a>
 				</p>
             </div>
         </div>
@@ -78,6 +80,8 @@
                 </p>
                 {% endif %}
 
+                {% if postTexts | length > 0 %}
+                <h3 class="text-warning">Reviews:</h3>
                 <ul class="posts">
                     {% for postText in postTexts %}
                     <li class="post">
@@ -96,15 +100,16 @@
                     </li>
                     {% endfor %}
                 </ul>
+                {% endif %}
 
-				<h3 class="text-warning">Reviews:</h3>
-				<div>add reviews here</div>
+
+				<h3 class="text-warning">Add reviews here</h3>
 				<div>
 					<form>
-						<div id="rating" class="rating" ><a></a></div>
-						<div id="score">
-                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
-                        </div>
+{#						<div id="rating" class="rating" ><a></a></div>#}
+{#						<div id="score">#}
+{#                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+{#                        </div>#}
 						<script>
 							var rating=$('#rating');
 							var leftRating = rating.offset().left,

@@ -230,3 +230,20 @@ def setBuyerHandler():
 		return "setted ok"
 	else:
 		return "cannot set again"
+
+@auth.route('/rateUserHandler', methods = ['POST'])
+@login_required
+def rateUserHandler():
+	rateScore = request.form.get("rateScore")
+	useremail = request.form.get("useremail")
+
+	qry = User.query(User.key == ndb.Key(User, useremail))
+	user = qry.fetch()[0]
+
+	user.ratedCounts += 1
+	user.rateScore = str((float(user.rateScore.encode("utf-8"))*(user.ratedCounts-1) + float(rateScore.encode("utf-8"))) / user.ratedCounts)
+	# user.rateScore = (user.rateScore + float(rateScore.encode("utf-8"))) / user.ratedCounts
+	user.put()
+	current_user.rateCounts -= 1
+	current_user.put()
+	return "rateOk"

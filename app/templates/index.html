@@ -95,8 +95,12 @@
 {#                                        <p>#}
 {#                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.#}
 {#                                        </p>#}
-                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
-                                        <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        <a href="{{ url_for('main.user_account', username = post.user_name) }}" style="text-align: left">
+                                            <img style="margin: 0;" class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
+                                        </a>
+                                        <a href="{{ url_for('main.user_account', username = post.user_name) }}">
+                                            <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        </a>
                                         <div style="position:relative; left:58%;top:-1.6em">
                                             <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
                                         </div>
@@ -104,10 +108,10 @@
                                             {{ post.description }}
                                         </p>
                                     </div>
-                                    <p>
-                                        <a href="#" class="btn btn-primary" role="button">Button</a>
-                                        <a href="#" class="btn btn-default" role="button">Button</a>
-                                    </p>
+{#                                    <p>#}
+{#                                        <a href="#" class="btn btn-primary" role="button">Button</a>#}
+{#                                        <a href="#" class="btn btn-default" role="button">Button</a>#}
+{#                                    </p>#}
                                 </div>
                             </div>
                         </div>
@@ -125,8 +129,12 @@
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
                                     <div>
-                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
-                                        <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        <a href="{{ url_for('main.user_account', username = post.user_name) }}" style="text-align: left">
+                                            <img style="margin: 0;" class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
+                                        </a>
+                                        <a href="{{ url_for('main.user_account', username = post.user_name) }}">
+                                            <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        </a>
                                         <div style="position:relative; left:58%;top:-1.6em">
                                             <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
                                         </div>
@@ -134,10 +142,10 @@
                                             {{ post.description }}
                                         </p>
                                     </div>
-                                    <p>
-                                        <a href="#" class="btn btn-primary" role="button">Button</a>
-                                        <a href="#" class="btn btn-default" role="button">Button</a>
-                                    </p>
+{#                                    <p>#}
+{#                                        <a href="#" class="btn btn-primary" role="button">Button</a>#}
+{#                                        <a href="#" class="btn btn-default" role="button">Button</a>#}
+{#                                    </p>#}
                                 </div>
                             </div>
                         </div>
@@ -173,8 +181,12 @@
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
                                     <div>
-                                        <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
-                                        <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        <a href="{{ url_for('main.user_account', username = post.user_name) }}" style="text-align: left">
+                                            <img style="margin: 0;" class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
+                                        </a>
+                                        <a href="{{ url_for('main.user_account', username = post.user_name) }}">
+                                            <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
+                                        </a>
                                         <div style="position:relative; left:58%;top:-1.6em">
                                             <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
                                         </div>
@@ -182,10 +194,10 @@
                                             {{ post.description }}
                                         </p>
                                     </div>
-                                    <p>
-                                        <a href="#" class="btn btn-primary" role="button">Button</a>
-                                        <a href="#" class="btn btn-default" role="button">Button</a>
-                                    </p>
+{#                                    <p>#}
+{#                                        <a href="#" class="btn btn-primary" role="button">Button</a>#}
+{#                                        <a href="#" class="btn btn-default" role="button">Button</a>#}
+{#                                    </p>#}
                                 </div>
                             </div>
                         </div>

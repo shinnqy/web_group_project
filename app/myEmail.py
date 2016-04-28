@@ -1,6 +1,7 @@
 from flask.ext.mail import Message
 from . import mail
 from flask import current_app, render_template
+from threading import Thread
 
 import smtplib
 from email.mime.text import MIMEText
@@ -17,6 +18,10 @@ def send_email(to, subject, template, **kwargs):
 	msg.body = render_template(template + '.txt', **kwargs)
 	msg.html = render_template(template + '.html', **kwargs)
 	mail.send(msg)
+
+# def send_async_email(app, me, to_list, msg):
+# 	with app.app_context():
+# 		send_mail()
 
 def send_mail(to_list,sub,content):
     me="hello"+"<"+mail_user+"@"+mail_postfix+">"

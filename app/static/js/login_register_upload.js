@@ -195,7 +195,9 @@ $(document).ready(function(){
 			data: obj,
 			dateType: 'html'
 		}).done(function () {
+			alert("Post successfully!");
 			console.log("Post text successfully!");
+			window.location.assign(window.location);
 		}).fail(function () {
 			console.log("Post text fail!");
 		});
@@ -230,12 +232,34 @@ $(document).ready(function(){
 		}).done(function (output) {
 			alert(output);
 			console.log(output);
-			console.log("Post interest successfully!");
+			console.log("Post setBuyer successfully!");
 		}).fail(function () {
-			console.log("Post interest fail!");
+			console.log("Post setBuyer fail!");
 		});
 	}
 	window.setBuyer = setBuyer;
+	
+	function rateUser(useremail) {
+		var rateScore = $(".rating-container").find(".rating-stars").attr("style").slice(7);
+		var nextIndex = rateScore.indexOf("%");
+		rateScore = rateScore.substr(0, nextIndex) / 100 * 5;
+		// var rateScore = $("#input-21e").attr("value");
+		var obj = {"rateScore": rateScore, "useremail": useremail};
+
+		$.ajax('/rateUserHandler',{
+			type: 'POST',
+			data: obj,
+			dateType: 'html'
+		}).done(function (output) {
+			alert(output);
+			window.location.assign(window.location);
+			console.log(output);
+			console.log("Post rateUser successfully!");
+		}).fail(function () {
+			console.log("Post rateUser fail!");
+		});
+	}
+	window.rateUser = rateUser;
 
 });
 
