@@ -232,7 +232,7 @@ def setBuyerHandler():
 		return "cannot set again"
 
 @auth.route('/rateUserHandler', methods = ['POST'])
-@login_required
+# @login_required
 def rateUserHandler():
 	rateScore = request.form.get("rateScore")
 	useremail = request.form.get("useremail")
@@ -241,9 +241,9 @@ def rateUserHandler():
 	user = qry.fetch()[0]
 
 	user.ratedCounts += 1
-	user.rateScore = str((float(user.rateScore.encode("utf-8"))*(user.ratedCounts-1) + float(rateScore.encode("utf-8"))) / user.ratedCounts)
-	# user.rateScore = (user.rateScore + float(rateScore.encode("utf-8"))) / user.ratedCounts
+	# user.rateScore = str((int(user.rateScore.encode("utf-8"))*(user.ratedCounts-1) + int(rateScore.encode("utf-8"))) / user.ratedCounts)
+	user.rateScore = str((int(user.rateScore)*(user.ratedCounts-1) + int(rateScore)) / user.ratedCounts)
 	user.put()
 	current_user.rateCounts -= 1
 	current_user.put()
-	return "rateOk"
+	return "rate ok"

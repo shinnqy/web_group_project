@@ -101,9 +101,25 @@
                                         <a href="{{ url_for('main.user_account', username = post.user_name) }}">
                                             <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
                                         </a>
-                                        <div style="position:relative; left:58%;top:-1.6em">
-                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                        <div id="userScore">
+                                            <p><b>TrustWorthy Score: <span></span>%</b></p>
+    {#                                        <div>#}
+    {#                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+    {#                                        </div>#}
+                                            <script>
+                                                $.ajax('/userRateStatus/' + '{{ post.user_email }}').done(function (output) {
+    {#                                                alert(output);#}
+    {#                                                $("#input-21e").attr("value", output);#}
+    {#                                                var scoreAttr = "width: " + output + "%';";#}
+    {#                                                $(".rating-container").find(".rating-stars").attr("style", scoreAttr);#}
+                                                    $("#userScore").find("span").text(output);
+                                                });
+                                            </script>
                                         </div>
+{#                                        <div style="position:relative; left:58%;top:-1.6em">#}
+{#                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+{##}
+{#                                        </div>#}
                                         <p>
                                             {{ post.description }}
                                         </p>
@@ -135,8 +151,20 @@
                                         <a href="{{ url_for('main.user_account', username = post.user_name) }}">
                                             <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
                                         </a>
-                                        <div style="position:relative; left:58%;top:-1.6em">
-                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                        <div id="userScore">
+                                            <p><b>TrustWorthy Score: <span></span>%</b></p>
+    {#                                        <div>#}
+    {#                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+    {#                                        </div>#}
+                                            <script>
+                                                $.ajax('/userRateStatus/' + '{{ post.user_email }}').done(function (output) {
+    {#                                                alert(output);#}
+    {#                                                $("#input-21e").attr("value", output);#}
+    {#                                                var scoreAttr = "width: " + output + "%';";#}
+    {#                                                $(".rating-container").find(".rating-stars").attr("style", scoreAttr);#}
+                                                    $("#userScore").find("span").text(output);
+                                                });
+                                            </script>
                                         </div>
                                         <p>
                                             {{ post.description }}
@@ -187,8 +215,20 @@
                                         <a href="{{ url_for('main.user_account', username = post.user_name) }}">
                                             <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
                                         </a>
-                                        <div style="position:relative; left:58%;top:-1.6em">
-                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                        <div id="userScore">
+                                            <p><b>TrustWorthy Score: <span></span>%</b></p>
+    {#                                        <div>#}
+    {#                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+    {#                                        </div>#}
+                                            <script>
+                                                $.ajax('/userRateStatus/' + '{{ post.user_email }}').done(function (output) {
+    {#                                                alert(output);#}
+    {#                                                $("#input-21e").attr("value", output);#}
+    {#                                                var scoreAttr = "width: " + output + "%';";#}
+    {#                                                $(".rating-container").find(".rating-stars").attr("style", scoreAttr);#}
+                                                    $("#userScore").find("span").text(output);
+                                                });
+                                            </script>
                                         </div>
                                         <p>
                                             {{ post.description }}

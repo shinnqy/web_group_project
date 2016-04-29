@@ -240,9 +240,9 @@ $(document).ready(function(){
 	window.setBuyer = setBuyer;
 	
 	function rateUser(useremail) {
-		var rateScore = $(".rating-container").find(".rating-stars").attr("style").slice(7);
+		var rateScore = $("#rateUser").find(".rating-stars").attr("style").slice(7)
 		var nextIndex = rateScore.indexOf("%");
-		rateScore = rateScore.substr(0, nextIndex) / 100 * 5;
+		rateScore = rateScore.substr(0, nextIndex);
 		// var rateScore = $("#input-21e").attr("value");
 		var obj = {"rateScore": rateScore, "useremail": useremail};
 

@@ -36,8 +36,20 @@
 {#                                    </p>#}
                                     <img class="img-circle my_grid_img" src="{{ url_for('main.image', useremail=post.user_email, _external=True) if (post.user_email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" width="50"/>
                                     <span class="text-warning" style="margin-left:5%">{{ post.user_name }}</span>
-                                    <div style="position:relative; left:58%;top:-1.6em">
-                                        <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                    <div id="userScore">
+                                        <p><b>TrustWorthy Score: <span></span>%</b></p>
+{#                                        <div>#}
+{#                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+{#                                        </div>#}
+                                        <script>
+                                            $.ajax('/userRateStatus/' + '{{ post.user_email }}').done(function (output) {
+{#                                                alert(output);#}
+{#                                                $("#input-21e").attr("value", output);#}
+{#                                                var scoreAttr = "width: " + output + "%';";#}
+{#                                                $(".rating-container").find(".rating-stars").attr("style", scoreAttr);#}
+                                                $("#userScore").find("span").text(output);
+                                            });
+                                        </script>
                                     </div>
                                     <p>
                                         {{ post.description }}

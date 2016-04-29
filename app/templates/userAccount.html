@@ -35,7 +35,13 @@
                     <img src="{{ url_for('main.image', useremail=user.email, _external=True) if (user.email in avatorResult) else url_for('static', filename='images/defaultAvator.jpg', _external=True) }}" alt="">
                 </a>
                 <ul class="info-bar">
-                    <li><h2>{{ user.name }}</h2></li>
+                    <li>
+                        <h2>{{ user.name }}</h2>
+                        <p><b>TrustWorthy Score: {{ user.rateScore }}%</b></p>
+{#                        <div>#}
+{#                            <input readonly="readonly" id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">#}
+{#                        </div>#}
+                    </li>
                     <li>
                         <button type="button" class="btn btn-default">Follow</button>
                         <button type="button" class="btn btn-default">Private letter</button>
@@ -63,11 +69,13 @@
                 <div>
 {#                    {{ buyerResult }}#}
                     <p>You can rate this user now!</p>
-                    <div id="rating" class="rating" >
-                        <a></a>
-                    </div>
-                    <div id="score">
-                        <input id="input-21e" value="3.0" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
+                    <div id="rateUser">
+                        <div id="rating" class="rating" >
+                            <a></a>
+                        </div>
+                        <div id="score">
+                            <input id="input-21e" value="3.0" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
+                        </div>
                     </div>
 {#                    {% if  %}#}
                     <br>
@@ -132,8 +140,20 @@
                                 <a href="{{ url_for('main.product', id = post.key.id()) }}"><img src="{{ post.image_link }}" alt="{{ post.imagename }}"></a>
                                 <div class="caption">
                                     <h3>{{ post.itemName }}</h3>
-                                    <div>
-                                        <span style="margin-left:10%">trust rate</span>
+                                    <div id="userScore">
+                                        <p><b>TrustWorthy Score: <span></span>%</b></p>
+{#                                        <div>#}
+{#                                            <input id="input-21e" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">#}
+{#                                        </div>#}
+                                        <script>
+                                            $.ajax('/userRateStatus/' + '{{ post.user_email }}').done(function (output) {
+{#                                                alert(output);#}
+{#                                                $("#input-21e").attr("value", output);#}
+{#                                                var scoreAttr = "width: " + output + "%';";#}
+{#                                                $(".rating-container").find(".rating-stars").attr("style", scoreAttr);#}
+                                                $("#userScore").find("span").text(output);
+                                            });
+                                        </script>
                                     </div>
                                     {% if current_user.is_authenticated and current_user == user %}
                                     <p>
